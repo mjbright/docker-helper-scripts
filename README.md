@@ -21,4 +21,17 @@ Just a few handy docker scripts ...
 
      Shows the processes running within containers.
 
+   E.g.
+     To see sub-processes of Docker engine
+        watch_pstree.sh
+
+     To see sub-processes of another process by name
+        watch_pstree.sh cron
+    
+     To see sub-processes of another process by pid
+        watch_pstree.sh <pid>, 
+     e.g.
+        watch_pstree.sh 111
+    
+
 
