@@ -33,5 +33,9 @@ Just a few handy docker scripts ...
      e.g.
         watch_pstree.sh 111
     
+- stop_rm_all.sh
 
+    Checks for running containers, prompts before stopping them
+
+    Checks for stopped containers, prompts before removing them
 
