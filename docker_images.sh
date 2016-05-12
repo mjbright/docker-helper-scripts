@@ -32,8 +32,12 @@ for image_id in $(docker images | tail -n+2 | awk '{print $3;}'); do
     # For each docker image obtain dependent image-layers using history command:
     echo "---- IMAGE: $image_id $(docker images | grep $image_id | sed 's/  */ /g')"
     [ $VERBOSE -eq 0 ] &&
-        docker history $image_id | tail -n+2 | awk '{print $1;}' | sed 's/^/    /' ||
-        docker history $image_id | tail -n+2 | \
+        docker history $image_id | tail -n+2 | grep -v "<missing>" | \
+            awk '{print $1;}' | sed 's/^/    /' ||
+        docker history $image_id | tail -n+2 | grep -v "<missing>" | \
             sed -e 's/      //' -e 's/^/    /' -e 's/ *$//'
+
+        missing=$(docker history $image_id | grep "<missing>" | wc -l)
+        [ $missing -ne 0 ] && echo "    $missing <missing>"
 done
 
