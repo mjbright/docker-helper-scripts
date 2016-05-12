@@ -23,11 +23,14 @@ for image_id in $(docker images | tail -n+2 | awk '{print $3;}'); do
     #    to avoid: 'value too great for base' error message
     KEY=I_$image_id
 
-    #echo ${seen[$KEY]}
-    if [ "${seen[$KEY]}" != "" ];then
-        seen[$KEY]=SEEN
-        #echo "seen[$KEY]=SEEN"
+    #echo ${image_seen[$KEY]}
+    if [ ! -z "${image_seen[$KEY]}" ];then
+        #echo "Already seen[$KEY]=SEEN"
+        continue
     fi
+
+    #echo "seen[$KEY]=SEEN"
+    image_seen[$KEY]=SEEN
     
     # For each docker image obtain dependent image-layers using history command:
     echo "---- IMAGE: $image_id $(docker images | grep $image_id | sed 's/  */ /g')"
