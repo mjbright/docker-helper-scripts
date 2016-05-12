@@ -40,7 +40,7 @@ for image_id in $(docker images | tail -n+2 | awk '{print $3;}'); do
         docker history $image_id | tail -n+2 | grep -v "<missing>" | \
             sed -e 's/      //' -e 's/^/    /' -e 's/ *$//'
 
-        missing=$(docker history $image_id | grep "<missing>" | wc -l)
-        [ $missing -ne 0 ] && echo "    $missing <missing>"
+        missing_ids=$(docker history $image_id | grep "<missing>" | wc -l)
+        [ $missing_ids -ne 0 ] && echo "    $missing_ids <missing> image ids"
 done
 
